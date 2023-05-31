@@ -1,10 +1,24 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Loginpage from './src/loginPage';
+import Dashboard from './src/Dashboard';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      
+      
+      {/* <Loginpage/> */}
+      <ScrollView style = {styles.container}>
+        <View style = {styles.cards,styles.cardelevated}>
+          <Text  fontSize="xs">Text</Text>
+          
+        </View>
+        <Dashboard/>
+       
+      </ScrollView>
+      
+     
       <StatusBar style="auto" />
     </View>
   );
@@ -12,9 +26,11 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
+    padding:8,
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+
+   
+    
   },
 });
