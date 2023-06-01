@@ -7,16 +7,16 @@ export default function HorizontalCards() {
   return (
    <View style = {styles.container}>
     <Text  style = {styles.headingTest}>Rooms</Text>
-     {/* <Button size="sm" variant="outline">
+     <Button size="sm" variant="outline">
             PRIMARY
           </Button>
-     */}
+    
     
     
      <ScrollView horizontal = {true}>
         <View style = {[styles.cards, styles.cardelevated]}>
       <Text >horizontalCards</Text>
-    </View>
+    </View>a
      <View style = {[styles.cards, styles.cardelevated]}>
       <Text >horizontalCards</Text>
     </View>
