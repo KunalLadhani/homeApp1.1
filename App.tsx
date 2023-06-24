@@ -1,36 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import React, {useState, useEffect} from 'react';
 import Loginpage from './src/loginPage';
 import Dashboard from './src/Dashboard';
+import { NativeBaseProvider } from 'native-base';
+import SignUp from './src/signupPage';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { auth } from './config';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+
+function App() {
+  const [user,setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+  }, []);
+
+  if (!user){
+    return (
+      <Stack.Navigator initialRouteName='Login' screenOptions={{headerShown: false }}>
+        <Stack.Screen name="Login" component={Loginpage} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+      </Stack.Navigator>
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      
-      
-      {/* <Loginpage/> */}
-      <ScrollView style = {styles.container}>
-        <View style = {styles.cards,styles.cardelevated}>
-          <Text  fontSize="xs">Text</Text>
-          
-        </View>
-        <Dashboard/>
-       
-      </ScrollView>
-      
-     
-      <StatusBar style="auto" />
-    </View>
+    <Stack.Navigator screenOptions={{headerShown: false }}>
+      <Stack.Screen name="Dashboard" component={Dashboard} /> 
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    padding:8,
-    flex: 1,
-    backgroundColor: '#fff',
-
-   
-    
-  },
-});
+export default () => {
+  return (
+    <NativeBaseProvider>
+    <NavigationContainer>
+      <App/>
+    </NavigationContainer>
+    </NativeBaseProvider>
+  )
+}
